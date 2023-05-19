@@ -195,12 +195,6 @@ const Filter = () => {
         <div className="my-2 ">
           <h1 className="text-md font-semibold">Price</h1>
           <ul className="px-2">
-            {/* {PricingArr.map((item) => (
-              <li key={item.value} className="flex space-x-2">
-                <input  type="checkbox" id={item.value} onChange={handlePriceChange} value={item.value}/>
-                <label htmlFor={item.value}>{item.label}</label>
-              </li>
-            ))} */}
             <div className="flex w-full py-2 items-center space-x-2">
               <div className="flex space-x-1 w-4/6  items-center">
                 <li className="flex items-center px-2 w-1/2 border font-medium border-black/60 shadow-sm  rounded-md ">
@@ -234,7 +228,7 @@ const Filter = () => {
               </div>
               <button
                 onClick={applyFilter}
-                type="Submit"
+                type="button"
                 className="border-black/60 border rounded-md hover:bg-cyan-500 px-1 py-0.5 flex"
               >
                 <MagnifyingGlassIcon className="w-5 h-5 " />
