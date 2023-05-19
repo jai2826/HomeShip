@@ -45,34 +45,49 @@ export default function Navbar() {
       </div>
       <div className="flex w-fit rounded-md ">
         <ul className="flex w-full items-center">
-          <Link to="/">
-            <li className="rounded-md  px-3  py-2 mx-3 text-xl font-semibold hover:bg-white">
+          <li className="mx-3">
+            <Link
+              to="/"
+              className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
+            >
               Home
-            </li>
-          </Link>
-          <Link to="/">
-            <li className="rounded-md  px-3  py-2 mx-3 text-xl font-semibold hover:bg-white">
+            </Link>
+          </li>
+          <li className="mx-3">
+            <Link
+              to="/"
+              className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
+            >
               About us
-            </li>
-          </Link>
-          <Link to="/products">
-            <li className="rounded-md  px-3  py-2 mx-3 text-xl font-semibold hover:bg-white">
+            </Link>
+          </li>
+          <li className="mx-3">
+            <Link
+              to="/products"
+              className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
+            >
               Products
-            </li>
-          </Link>
-          <Link to="/">
-            <li className="rounded-md  px-3  py-2 mx-3 text-xl font-semibold hover:bg-white">
+            </Link>
+          </li>
+          <li className="mx-3">
+            <Link
+              to="/"
+              className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
+            >
               Services
-            </li>
-          </Link>
-          <Link to="/">
-            <li className="rounded-md  px-3  py-2 mx-3 text-xl font-semibold hover:bg-white">
+            </Link>
+          </li>
+          <li className="mx-3">
+            <Link
+              to="/"
+              className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
+            >
               Sell
-            </li>
-          </Link>
+            </Link>
+          </li>
 
           <button onClick={handleCart}>
-            <li className="rounded-md  px-3 py-2 mx-3 text-xl font-semibold hover:bg-white">
+            <li className="rounded-md  px-3 py-2  text-xl font-semibold hover:bg-white">
               Cart
             </li>
           </button>
