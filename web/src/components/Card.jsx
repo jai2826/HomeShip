@@ -1,11 +1,11 @@
 import { InformationCircleIcon, StarIcon } from "@heroicons/react/24/solid";
 import { useEffect, useState } from "react";
-import RatingCard from "./RatingCard";
+import RatingCard from "./Review/RatingCard";
 import { Link } from "react-router-dom";
 import { setItem } from "./../../utils/CartUpdate";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartItems } from "../../feature/Cart/cart";
-import { load, notload } from "../../feature/Page/loading";
+import { load as cartload, notload as cartNotload } from "../../feature/Cart/loading";
 
 export default function ({ data }) {
   const [ratingVisible, setRatingVisible] = useState(false);
@@ -14,8 +14,8 @@ export default function ({ data }) {
   useEffect(() => {
     const getRating = () => {
       const sum = data.reviews.reduce((acc, item) => acc + item.rating, 0);
-      const value = sum / data.reviews.length;
-      return value;
+      const avg = sum / data.reviews.length;
+      return avg;
     };
     const average = getRating();
     setAverageRating(average);
@@ -25,10 +25,10 @@ export default function ({ data }) {
   const cartId = useSelector((state) => state.cart.cartId);
   const userId = useSelector((state) => state.auth.data.id);
   const setCartData = async () => {
-    dispatch(load());
+    dispatch(cartload());
     const newdata = await setItem(cartData,cartId,data);
     dispatch(setCartItems(newdata.cart));
-    dispatch(notload());
+    dispatch(cartNotload());
   };
 
   return (

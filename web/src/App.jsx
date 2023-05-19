@@ -14,6 +14,7 @@ import { setProgress } from "../feature/Page/loading";
 import { GraphQLClient, gql } from "graphql-request";
 import { login, logout } from "../feature/Auth/user";
 import { setCartItems } from "../feature/Cart/cart";
+import { setDisplayProducts, setProducts } from "../feature/Product/products";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -30,16 +31,66 @@ export default function App() {
       showDismissButton: true,
     },
   });
+  const FetchData = async () => {
+    const graphQLClient = new GraphQLClient(
+      import.meta.env.VITE_HYGRAPH_ENDPOINT,
+      {
+        headers: {
+          authorization: `Bearer ${import.meta.env.VITE_HYGRAPH_TOKEN}`,
+        },
+      }
+    );
+
+    // Query Setup
+    const query = gql`
+      query Product {
+        products(where: { AND: [] }) {
+          id
+          name
+          price
+          images {
+            id
+            url
+            fileName
+          }
+          reviews {
+            content
+            email
+            headline
+            id
+            name
+            rating
+          }
+          description
+          coupon {
+            value
+            name
+            type
+          }
+          categories {
+            name
+          }
+        }
+      }
+    `;
+
+    // Calling the query
+    const Newdata = await graphQLClient.request(query);
+    const Random = await JSON.parse(JSON.stringify(Newdata.products));
+
+    dispatch(setProducts(Random));
+    dispatch(setDisplayProducts(Random));
+  };
+
   useEffect(() => {
-    if (
-      location.pathname === "/auth/signin" ||
-      location.pathname === "/auth/signup"
-    ) {
+    if (location.pathname === "/auth/signin" ||  location.pathname === "/auth/signup") 
+    {
       dispatch(hideNav());
     } else {
       dispatch(showNav());
     }
   }, [location.pathname]);
+
   useEffect(() => {
     const Signin = async () => {
       dispatch(setProgress(20));
@@ -95,10 +146,8 @@ export default function App() {
         dispatch(setProgress(100));
         return;
       }
-      
 
-      
-      if (Newdata.customer.password === User.password){
+      if (Newdata.customer.password === User.password) {
         dispatch(setProgress(60));
         dispatch(login(Newdata.customer));
         dispatch(
@@ -127,6 +176,12 @@ export default function App() {
     if (User.email !== null) Signin();
   }, []);
 
+    useEffect(() => {
+      FetchData();    
+  }, []);
+
+
+
   return (
     <>
       <NotificationsSystem
@@ -147,9 +202,11 @@ export default function App() {
         onLoaderFinished={() => dispatch(setProgress(0))}
       />
       {
-        <div className=" mx-auto space-y-2 h-screen overflow-x-hidden">
+        <div className=" mx-auto space-y-2 h-screen overflow-x-hidden ">
           {!hideNavbar && <Navbar />}
+
           <Outlet />
+
           {/* <Footer /> */}
         </div>
       }

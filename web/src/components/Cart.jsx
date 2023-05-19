@@ -6,10 +6,10 @@ import {
   TrashIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
-import {load , notload} from './../../feature/Page/loading'
+import {load , notload} from './../../feature/Cart/loading'
 import { cartToggle, emptyCart, setCartItems } from "../../feature/Cart/cart";
 import { clearItem, clearCart, decreaseItem, setItem } from "./../../utils/CartUpdate";
-import BeatLoader from "react-spinners/BeatLoader";
+import SyncLoader from "react-spinners/SyncLoader";
 
 export default function Cart() {
   const cartVisible = useSelector((state) => state.cart.visible);
@@ -18,7 +18,7 @@ export default function Cart() {
   const stateCart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
-  const loading = useSelector((state)=>state.loading.value)
+  const loading = useSelector((state)=>state.cartLoader.value)
 
   const ClearCart = async ()=>{
     dispatch(load())
@@ -31,7 +31,6 @@ export default function Cart() {
   const DeleteItem = async (data) => {
     dispatch(load())
     const newdata = await clearItem(stateCart, data);
-    // console.log(data)
     dispatch(setCartItems(newdata.cart))
     dispatch(notload())
   };
@@ -56,7 +55,7 @@ export default function Cart() {
 
   return (
     <div
-      className={` fixed right-0 rounded-md border p-2 top-20  bg-white h-screen w-1/2 md:w-1/3  my-2 transition-all duration-[2000] z-20 transform ${
+      className={`overflow-scroll fixed right-0 rounded-md border p-2 top-20  bg-white h-screen w-1/2 md:w-1/3  my-2 transition-all duration-[2000] z-20 transform ${
         cartVisible ? "translate-x-0 " : "translate-x-full "
       }`}
     >
@@ -114,7 +113,7 @@ export default function Cart() {
             })}
         </div>
         <div className="self-center">
-          <BeatLoader loading={loading} color="#36d7b7" />
+          <SyncLoader loading={loading} color="#36d7b7" />
         </div>
       </div>
     </div>

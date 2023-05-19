@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  data: []
+  fetchedData:[],
+  displayData:[],
+  
 }
 
 export const productSlice = createSlice({
@@ -9,12 +11,15 @@ export const productSlice = createSlice({
   initialState,
   reducers: {
     setProducts: (state, action)=>{
-        state.data = action.payload
+        state.fetchedData = action.payload
+    },
+    setDisplayProducts: (state, action)=>{
+        state.displayData = action.payload
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setProducts } = productSlice.actions
+export const { setProducts,setDisplayProducts } = productSlice.actions
 
 export default productSlice.reducer

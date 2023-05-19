@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { cartToggle } from "../../feature/cart/cart";
+import { cartToggle } from "../../feature/Cart/cart";
 import Cart from "./Cart";
 import { logout } from "../../feature/Auth/user";
 import { setProgress } from "../../feature/Page/loading";

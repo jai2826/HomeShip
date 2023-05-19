@@ -29,7 +29,7 @@ export const clearCart = async (userEmail) => {
 
 export const clearItem = async (stateCart, data) => {
 
-  let totalcost = 100 , totalqty =100
+  let totalcost = 0 , totalqty =0
   // for (let i = 0; i < stateCart.length; i++) {
   //   const element = stateCart[i];
   //   totalcost -= element.total 
