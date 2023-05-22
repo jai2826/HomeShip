@@ -21,15 +21,15 @@
     margin: 0;
   }
   ::-webkit-scrollbar {
-    width: 8px;
+    @apply w-2;    
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100;
+    @apply bg-slate-100 mx-4;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-purple-500  border;
+    @apply bg-purple-500  border mx-4;
   }
 
   /* ::-webkit-scrollbar-thumb:hover {

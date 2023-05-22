@@ -29,10 +29,10 @@ export default function ({ data }) {
     const newdata = await setItem(cartData,cartId,data);
     dispatch(setCartItems(newdata.cart));
     dispatch(cartNotload());
+    // console.log(cartData)
   };
-
   return (
-    <div className="flex flex-col h-96 w-80 md:h-[360px] md:w-[260px] border my-5 rounded-md ">
+    <div className="flex flex-col h-96 w-full md:h-[360px] md:w-1/3.5 border my-5 rounded-md lg:mx-4 ">
       <Link to={"/"} className="h-44 flex justify-center p-1 ">
         <img
           className="h-full  object-center "

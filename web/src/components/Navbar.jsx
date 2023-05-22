@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { cartToggle } from "../../feature/Cart/cart";
-import Cart from "./Cart";
 import { logout } from "../../feature/Auth/user";
 import { setProgress } from "../../feature/Page/loading";
 import { notify } from "reapop";
@@ -9,6 +8,8 @@ import {
   UserCircleIcon,
   ArrowLeftOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import { PuzzlePieceIcon } from "@heroicons/react/24/solid";
+import { utilToggle } from "../../feature/Page/utils";
 
 export default function Navbar() {
   const dispatch = useDispatch();
@@ -32,8 +33,8 @@ export default function Navbar() {
     dispatch(setProgress(100));
   };
 
-  const handleCart = () => {
-    dispatch(cartToggle());
+  const handleUtils = () => {
+    dispatch(utilToggle());
   };
 
   // const cartVisible = useSelector((state) => state.cart.visible);
@@ -85,20 +86,25 @@ export default function Navbar() {
               Sell
             </Link>
           </li>
-
-          <button onClick={handleCart}>
-            <li className="rounded-md  px-3 py-2  text-xl font-semibold hover:bg-white">
+          <li className="mx-3" >
+            <Link
+              to="#"
+              className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
+              onClick={()=>dispatch(utilToggle())}
+            >
               Cart
-            </li>
-          </button>
-          {<Cart />}
+            </Link>
+          </li>
+
+          
+          
         </ul>
       </div>
       <div className="flex w-fit rounded-md ">
-        <ul className="flex w-full items-center">
+        <div className="flex w-full items-center">
           {isLoggedIn ? (
             <button onClick={handleLogout}>
-              <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-2 text-xl font-semibold hover:bg-white">
+              <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-1 text-xl font-semibold hover:bg-white">
                 <ArrowLeftOnRectangleIcon className="h-6 w-6" /> <p> Logout</p>
               </li>
             </button>
@@ -110,19 +116,24 @@ export default function Navbar() {
             </Link>
           )}
           <Link to="/profile">
-            <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-2 text-xl font-semibold hover:bg-white ">
+            <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-1 text-xl font-semibold hover:bg-white ">
               <UserCircleIcon className="h-6 w-6" /> <p> Profile</p>
             </li>
           </Link>
-        </ul>
+          <button onClick={handleUtils}>
+            <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-1 text-xl font-semibold hover:bg-white ">
+              <PuzzlePieceIcon className="h-6 w-6" /> 
+            </li>
+          </button>
+        </div>
       </div>
-      <div className="hidden self-center cursor-pointer p-2 border rounded-md ">
+      {/* <div className="hidden self-center cursor-pointer p-2 border rounded-md ">
         <ul className="flex flex-col [&>*]:bg-white">
           <li className="h-0.5 w-8 my-1 "></li>
           <li className="h-0.5 w-8 my-1 "></li>
           <li className="h-0.5 w-8 my-1 "></li>
         </ul>
-      </div>
+      </div> */}
     </nav>
   );
 }

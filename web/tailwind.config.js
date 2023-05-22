@@ -7,8 +7,15 @@ export default {
   theme: {
     extend: {
       width:{
-       '100':'25rem'
+        '1/3.5':'22.5%'
+      },
+      spacing:{
+        '18':'4.5rem',
+        '100':'25rem',
       }
+
+
+
     },
   },
   plugins: [],

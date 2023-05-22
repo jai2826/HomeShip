@@ -15,6 +15,7 @@ import { GraphQLClient, gql } from "graphql-request";
 import { login, logout } from "../feature/Auth/user";
 import { setCartItems } from "../feature/Cart/cart";
 import { setDisplayProducts, setProducts } from "../feature/Product/products";
+import RightUtils from "./components/RightUtils/Base";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -202,10 +203,11 @@ export default function App() {
         onLoaderFinished={() => dispatch(setProgress(0))}
       />
       {
-        <div className=" mx-auto space-y-2 h-screen overflow-x-hidden ">
+        <div className=" mx-auto space-y-2 h-full  ">
           {!hideNavbar && <Navbar />}
 
           <Outlet />
+          <RightUtils />
 
           {/* <Footer /> */}
         </div>

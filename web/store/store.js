@@ -8,6 +8,7 @@ import { reducer as notificationsReducer } from "reapop";
 import productsReducer from "../feature/Product/products";
 import productsLoaderReducer from '../feature/Product/loading'
 import filterReducer from '../feature/Product/filter'
+import UtilReducer from '../feature/Page/utils'
 import {
   persistReducer,
   FLUSH,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   products: productsReducer,
   productsLoading: productsLoaderReducer,
   filters:filterReducer,
+  util:UtilReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

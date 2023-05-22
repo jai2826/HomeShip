@@ -16,6 +16,9 @@ import {
 import { setDisplayProducts } from "../../feature/Product/products";
 
 const Filter = () => {
+
+
+  const [filterCount, setFilterCount] = useState(0)
   const graphQLClient = new GraphQLClient(
     import.meta.env.VITE_HYGRAPH_ENDPOINT,
     {
@@ -76,6 +79,7 @@ const Filter = () => {
 
   // const filter
   const handleCategoryChange = async (e) => {
+    
     const { checked, value } = e.target;
     if (checked) {
       setTempFilters((prev) => {
@@ -150,8 +154,8 @@ const Filter = () => {
 
 
   return (
-    <div className="w-80 py-2 px-4 bg-white ">
-      <div className="my-2 p-2 rounded-md flex justify-between bg-cyan-500">
+    <div className="w-100 py-2 h-fit bg-white sticky top-20">
+      <div className="m-2 p-2  rounded-md flex justify-between bg-cyan-500">
         <h1 className="text-2xl font-semibold">Filters</h1>
         <span>
           <button
@@ -172,7 +176,7 @@ const Filter = () => {
         </span>
       </div>
       <form className="flex flex-col h-full w-full p-2">
-        <div className="my-2 ">
+        <div className="m-2 ">
           <h1 className="text-md font-semibold">Category</h1>
           <ul className="px-2">
             {CategoryArr.map((item, index) => {
@@ -192,7 +196,8 @@ const Filter = () => {
             })}
           </ul>
         </div>
-        <div className="my-2 ">
+        <div className="my-4 w-full h-0.5 bg-black/40"></div>
+        <div className="m-2 ">
           <h1 className="text-md font-semibold">Price</h1>
           <ul className="px-2">
             <div className="flex w-full py-2 items-center space-x-2">
@@ -236,7 +241,8 @@ const Filter = () => {
             </div>
           </ul>
         </div>
-        <div className="my-2 ">
+        <div className="my-4 w-full h-0.5 bg-black/40"></div>
+        <div className="m-2 ">
           <span className="flex justify-between items-center ">
             <h1 className="text-md font-semibold">Customer Rating</h1>
             <button
@@ -271,6 +277,7 @@ const Filter = () => {
             })}
           </ul>
         </div>
+        {/* <div className="w-full h-0.5 bg-black/40"></div> */}
         {/* <div className="my-2 ">
           <h1 className="text-md font-semibold">Deals</h1>
         </div> */}

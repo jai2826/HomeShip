@@ -1,25 +1,19 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect } from "react";
 import Card from "../components/Card";
-import testData from "./../assets/myTestData.json";
-import { GraphQLClient, gql } from "graphql-request";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setDisplayProducts,
-  setProducts,
-} from "./../../feature/Product/products";
-import { setProgress } from "../../feature/Page/loading";
+import { setDisplayProducts } from "./../../feature/Product/products";
 import Filter from "../components/Filter";
 import PropogateLoader from "react-spinners/PropagateLoader";
-import { load, notload } from "../../feature/Product/loading";
+import RightUtils from "../components/RightUtils/Base";
 
 export default function Products() {
-  const [itemCount, setItemCount] = useState(35);
-  const [newdata, setNewData] = useState(testData.slice(0, itemCount));
-  const showMore = async () => {
-    setNewData(newdata.concat(testData.slice(itemCount, itemCount + 14)));
-    setItemCount((prevState) => prevState + 14);
-    //console.log(newdata, itemCount);
-  };
+  // const [itemCount, setItemCount] = useState(35);
+  // const [newdata, setNewData] = useState(testData.slice(0, itemCount));
+  // const showMore = async () => {
+  //   setNewData(newdata.concat(testData.slice(itemCount, itemCount + 14)));
+  //   setItemCount((prevState) => prevState + 14);
+  //   //console.log(newdata, itemCount);
+  // };
 
   const dispatch = useDispatch();
   const productLoading = useSelector((state) => state.productsLoading.value);
@@ -27,13 +21,9 @@ export default function Products() {
   const productsData = useSelector((state) => state.products.fetchedData);
   const displayData = useSelector((state) => state.products.displayData);
 
- 
   const Filteration = async () => {
     const priceFilterArr = await productsData.filter((item) => {
-      if (
-        item.price >= filters.price.start &&
-        item.price <= filters.price.end
-      )
+      if (item.price >= filters.price.start && item.price <= filters.price.end)
         return item;
     });
     const categoryFilterArr = await priceFilterArr.filter((item) => {
@@ -55,18 +45,13 @@ export default function Products() {
     dispatch(setDisplayProducts(newProduct));
   };
 
-
-
   useLayoutEffect(() => {
     Filteration();
   }, [filters]);
 
-
-
   return (
     <div className="flex w-full h-full space-x-1 ">
       <Filter />
-
       <div
         className={`${
           productLoading ? "pointer-events-none " : ""
@@ -75,26 +60,23 @@ export default function Products() {
         <div className="flex items-center justify-center my-2 ">
           <PropogateLoader loading={productLoading} color="#06b6d4" />
         </div>
-        <div className="flex w-full flex-col">
-          <div className="flex flex-wrap justify-evenly ">
+        <div className="flex w-full flex-col ">
+          <div className="flex flex-wrap lg:px-8 ">
             {displayData.map((item) => {
-              return (
-                <div key={item.id}>
-                  <Card data={item} />
-                </div>
-              );
+              return <Card key={item.id} data={item} />;
             })}
           </div>
-          <div className="flex items-center justify-center h-80 w-full">
+          {/* <div className="flex items-center justify-center h-80 w-full">
             <button
               onClick={showMore}
               className="flex text-2xl font-bold hover:bg-purple-500 p-4 rounded-md"
             >
               More Item
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
+      
     </div>
   );
 }
