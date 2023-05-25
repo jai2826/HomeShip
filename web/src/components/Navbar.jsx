@@ -40,7 +40,7 @@ export default function Navbar() {
   // const cartVisible = useSelector((state) => state.cart.visible);
 
   return (
-    <nav className="top-0 sticky flex w-full h-20 p-2  justify-between bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500">
+    <nav className="top-0 sticky flex w-full h-20 p-2  justify-between bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-500 z-50">
       <div className="max-w-fit flex p-4 border-2 rounded-md">
         <img src="/vite.svg" alt="Lggo" />
       </div>

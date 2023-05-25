@@ -22,13 +22,15 @@ export const CartSlice = createSlice({
       state.visible = !state.visible;
     },
     setCartItems: (state, action) => {
-      const { id, orderItems, totalCost, totalQuantity } = action.payload;
+      const { id, orderItems} = action.payload;
+      
       if (action.payload !== null) {
         state.cartId = id;
         state.data = orderItems;
-        state.checkoutData.totalCost = totalCost;
-        state.checkoutData.totalQuantity = totalQuantity;
+        state.checkoutData.totalCost = 0;
+        state.checkoutData.totalQuantity = 0;
       }
+      
     },
     emptyCart: (state) => {
       state.data = [];

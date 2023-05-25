@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { utilToggle } from "../../../feature/Page/utils";
 import Cart from "./Cart";
+import Favourites from "./Favourites";
 
 const RightUtils = () => {
   const dispatch = useDispatch();
@@ -12,8 +13,8 @@ const RightUtils = () => {
   const handleCart = () => {
     setActiveUtil("Cart");
   };
-  const handleWishlist = () => {
-    setActiveUtil("Wishlist");
+  const handleFavourite = () => {
+    setActiveUtil("Favourite");
   };
   return (
     <div
@@ -36,9 +37,9 @@ const RightUtils = () => {
 
         <button
           type="button"
-          onClick={handleWishlist}
+          onClick={handleFavourite}
           className={`px-2 py-1 pb-2 rounded-t-md ${
-            activeUtil === "Wishlist" && "bg-white"
+            activeUtil === "Favourite" && "bg-white"
           }`}
           >
           <HeartIcon className="h-6 w-6" />
@@ -56,6 +57,7 @@ const RightUtils = () => {
       </div>
       <div>
         {activeUtil === 'Cart' && <Cart/>}
+        {activeUtil === 'Favourite' && <Favourites/>}
       </div>
 
     </div>

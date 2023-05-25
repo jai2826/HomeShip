@@ -1,0 +1,73 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Jai Lakhmani\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add lucide-react
+
+PATH: 
+  C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python310\Scripts\;C:\Python310\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\ProgramData\chocolatey\bin;C:\Program Files\nodejs;C:\Program Files\Git\cmd\;C:\Program Files\Git\bin\;C:\Program Files\MongoDB\Server\5.0\bin\;C:\MinGW\mingw32\bin;C:\Users\Jai Lakhmani\AppData\Local\Yarn\bin;C:\Program Files\nodejs\;C:\Program Files\dotnet\;C:\Program Files\Docker\Docker\resources\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Jai Lakhmani\AppData\Local\Programs\Python\Python310\Scripts\;C:\Users\Jai Lakhmani\AppData\Local\Programs\Python\Python310\;C:\Users\Jai Lakhmani\AppData\Local\Microsoft\WindowsApps;C:\Users\Jai Lakhmani\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\nodejs;C:\Program Files\Git\cmd\;C:\Program Files\Git\bin\;C:\Program Files\MongoDB\Server\5.0\bin\;C:\MinGW\bin;C:\Users\Jai Lakhmani\AppData\Local\GitHubDesktop\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2022.1.1\bin;C:\Users\Jai Lakhmani\AppData\Roaming\npm;C:\Users\Jai Lakhmani\.deno\bin;C:\Program Files\Java\jdk-19\bin;;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.15.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'E:\Projects\HomeShip\web\node_modules\@esbuild\win32-x64\esbuild.exe'
+
+npm manifest: 
+  {
+    "name": "web",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+      "preview": "vite preview"
+    },
+    "dependencies": {
+      "@heroicons/react": "^2.0.17",
+      "@reduxjs/toolkit": "^1.9.5",
+      "crypto-js": "^4.1.1",
+      "graphql": "^16.6.0",
+      "graphql-request": "^6.0.0",
+      "localforage": "^1.10.0",
+      "match-sorter": "^6.3.1",
+      "rc-progress": "^3.4.1",
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "react-hook-form": "^7.43.9",
+      "react-infinite-scroll-component": "^6.1.0",
+      "react-redux": "^8.0.5",
+      "react-router-dom": "^6.10.0",
+      "react-select": "^5.7.2",
+      "react-spinners": "^0.13.8",
+      "react-top-loading-bar": "^2.3.1",
+      "reapop": "^4.2.1",
+      "redux-persist": "^6.0.0",
+      "sort-by": "^1.2.0"
+    },
+    "devDependencies": {
+      "@hookform/devtools": "^4.3.1",
+      "@types/react": "^18.0.28",
+      "@types/react-dom": "^18.0.11",
+      "@vitejs/plugin-react": "^4.0.0-beta.0",
+      "autoprefixer": "^10.4.14",
+      "eslint": "^8.38.0",
+      "eslint-plugin-react": "^7.32.2",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "eslint-plugin-react-refresh": "^0.3.4",
+      "postcss": "^8.4.23",
+      "tailwindcss": "^3.3.1",
+      "vite": "^4.3.0"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

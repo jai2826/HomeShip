@@ -12,6 +12,7 @@ import { login } from "./../../../feature/Auth/user";
 import { load, notload, setProgress } from "../../../feature/Page/loading";
 import { notify } from "reapop";
 import { setCartItems } from "../../../feature/Cart/cart";
+import { setFavourite } from "../../../feature/Auth/favourite";
 
 export default function Signin() {
   const dispatch = useDispatch();
@@ -64,6 +65,14 @@ export default function Signin() {
           password
           phoneNumber
           email
+          favourite {
+            id
+            product {
+              ... on Product {
+                id
+              }
+            }
+          }
           cart {
             id
             orderItems {
@@ -87,6 +96,7 @@ export default function Signin() {
     // Calling the mutation
     const Newdata = await graphQLClient.request(query);
     dispatch(setProgress(40));
+    
 
     if (Newdata.customer === null) {
       dispatch(setProgress(60));
@@ -110,9 +120,15 @@ export default function Signin() {
     const newPassword = bytes.toString(CryptoJS.enc.Utf8);
 
     if (newPassword === formData.Password) {
+      
       dispatch(login(Newdata.customer));
       dispatch(setProgress(80));
       navigate("/", { replace: true });
+
+      
+
+
+
       dispatch(
         notify({
           title: "Signin Successfull",
@@ -120,6 +136,13 @@ export default function Signin() {
           status: "success",
         })
       );
+      
+      if(Newdata.customer.favourite){
+        const tempArr = Newdata.customer.favourite.product.map(item=>{
+          return item.id
+        })
+        dispatch(setFavourite({data: tempArr,id: Newdata.customer.favourite.id}))
+      }
       if(Newdata.customer.cart !== null){
         dispatch(setCartItems(Newdata.customer.cart));
       }

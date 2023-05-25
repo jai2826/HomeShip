@@ -7,14 +7,6 @@ import PropogateLoader from "react-spinners/PropagateLoader";
 import RightUtils from "../components/RightUtils/Base";
 
 export default function Products() {
-  // const [itemCount, setItemCount] = useState(35);
-  // const [newdata, setNewData] = useState(testData.slice(0, itemCount));
-  // const showMore = async () => {
-  //   setNewData(newdata.concat(testData.slice(itemCount, itemCount + 14)));
-  //   setItemCount((prevState) => prevState + 14);
-  //   //console.log(newdata, itemCount);
-  // };
-
   const dispatch = useDispatch();
   const productLoading = useSelector((state) => state.productsLoading.value);
   const filters = useSelector((state) => state.filters.data);
@@ -66,17 +58,8 @@ export default function Products() {
               return <Card key={item.id} data={item} />;
             })}
           </div>
-          {/* <div className="flex items-center justify-center h-80 w-full">
-            <button
-              onClick={showMore}
-              className="flex text-2xl font-bold hover:bg-purple-500 p-4 rounded-md"
-            >
-              More Item
-            </button>
-          </div> */}
         </div>
       </div>
-      
     </div>
   );
 }

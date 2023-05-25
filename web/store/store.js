@@ -8,6 +8,7 @@ import { reducer as notificationsReducer } from "reapop";
 import productsReducer from "../feature/Product/products";
 import productsLoaderReducer from '../feature/Product/loading'
 import filterReducer from '../feature/Product/filter'
+import FavouriteReducer from "../feature/Auth/favourite";
 import UtilReducer from '../feature/Page/utils'
 import {
   persistReducer,
@@ -20,10 +21,11 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ['loading','productsLoader','cartLoader','filters','products'],
+  blacklist: ['loading','productsLoading','cartLoader','filters','products','favourite'],
 };
 
 const rootReducer = combineReducers({
@@ -36,7 +38,8 @@ const rootReducer = combineReducers({
   products: productsReducer,
   productsLoading: productsLoaderReducer,
   filters:filterReducer,
-  util:UtilReducer
+  util:UtilReducer,
+  favourite:FavouriteReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

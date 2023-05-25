@@ -8,6 +8,7 @@ const initialState = {
       end: 50000,
     },
     rating:0,
+    sort: 1
   },
 };
 
@@ -27,7 +28,7 @@ export const filterSlice = createSlice({
           end: 50000,
         },
         rating: 0,
-        
+        sort: 1,
       };
       
     },

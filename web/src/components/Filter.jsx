@@ -16,9 +16,7 @@ import {
 import { setDisplayProducts } from "../../feature/Product/products";
 
 const Filter = () => {
-
-
-  const [filterCount, setFilterCount] = useState(0)
+  const [filterCount, setFilterCount] = useState(0);
   const graphQLClient = new GraphQLClient(
     import.meta.env.VITE_HYGRAPH_ENDPOINT,
     {
@@ -29,6 +27,28 @@ const Filter = () => {
   );
 
   const dispatch = useDispatch();
+  const SortArr = [
+    {
+      value: 4,
+      id: "avgcustomerrating",
+      label:"Avg. Customer Reviews",
+    },
+    {
+      value: 3,
+      id: "pricelowtohigh",
+      label:"Price: Low to High",
+    },
+    {
+      value: 2,
+      id: "pricehightolow",
+      label:"Price: Low to High",
+    },
+    {
+      value: 1,
+      id: "newarrivals",
+      label:"New Arrivals",
+    },
+  ];
   const RatingArr = [
     {
       value: 4,
@@ -79,7 +99,6 @@ const Filter = () => {
 
   // const filter
   const handleCategoryChange = async (e) => {
-    
     const { checked, value } = e.target;
     if (checked) {
       setTempFilters((prev) => {
@@ -110,7 +129,6 @@ const Filter = () => {
         };
       });
     }
-    
   };
 
   const handlePriceChange = async (e) => {
@@ -129,7 +147,7 @@ const Filter = () => {
 
   // console.log(tempFilters)
   const applyFilter = async () => {
-    dispatch(setFilters(tempFilters));    
+    dispatch(setFilters(tempFilters));
   };
   const clearFilter = async () => {
     dispatch(clearFilters());
@@ -138,20 +156,12 @@ const Filter = () => {
     dispatch(clearRatingFilters());
   };
 
-  
   useEffect(() => {
     setTempFilters(filters);
   }, [filters]);
   useEffect(() => {
     applyFilter();
   }, [tempFilters.rating]);
-
-
-
-
-  
-
-
 
   return (
     <div className="w-100 py-2 h-fit bg-white sticky top-20">
@@ -176,6 +186,36 @@ const Filter = () => {
         </span>
       </div>
       <form className="flex flex-col h-full w-full p-2">
+        {/* <div className="m-2 ">
+          <span className="flex justify-between items-center ">
+            <h1 className="text-md font-semibold">Sort</h1>
+            <button
+              type="button"
+              // onClick={clearRatingFilter}
+              className="px-2 py-1 hover:bg-white rounded-md"
+            >
+              <TrashIcon className="h-5 w-5" />
+            </button>
+          </span>
+          <ul className="px-2">
+            {SortArr.map((item, index) => {
+              return (
+                <li key={index} className="flex space-x-2">
+                  <input
+                    type="checkbox"
+                    id={item.id}
+                    name={item.id}
+                    value={item.value}
+                    // checked={tempFilters.categories.includes(item.value)}
+                    // onChange={handleCategoryChange}
+                  />
+                  <label htmlFor={item.id}>{item.label}</label>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="my-4 w-full h-0.5 bg-black/40"></div> */}
         <div className="m-2 ">
           <h1 className="text-md font-semibold">Category</h1>
           <ul className="px-2">
@@ -277,10 +317,6 @@ const Filter = () => {
             })}
           </ul>
         </div>
-        {/* <div className="w-full h-0.5 bg-black/40"></div> */}
-        {/* <div className="my-2 ">
-          <h1 className="text-md font-semibold">Deals</h1>
-        </div> */}
       </form>
     </div>
   );

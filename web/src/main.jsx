@@ -5,13 +5,13 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { store } from "./../store/store.js";
 import { Provider } from "react-redux";
-import Home from './pages/Home.jsx';
+import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Signin from "./pages/Authentication/Signin.jsx";
 import Signup from "./pages/Authentication/Signup.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
-
+import { IconContext } from "react-icons";
 
 const Router = createBrowserRouter([
   {
@@ -25,7 +25,8 @@ const Router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
-      },{
+      },
+      {
         path: "/auth/signin",
         element: <Signin />,
       },
@@ -35,17 +36,14 @@ const Router = createBrowserRouter([
       },
     ],
   },
-  
 ]);
 
-let persistor = persistStore(store)
+let persistor = persistStore(store);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <RouterProvider router={Router} />
-      </PersistGate>
-    </Provider>
-  
+    </PersistGate>
+  </Provider>
 );

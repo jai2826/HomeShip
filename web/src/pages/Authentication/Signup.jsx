@@ -87,7 +87,7 @@ export default function Signup() {
           id
           name
           phoneNumber
-          email
+          email          
         }
       }
       `;

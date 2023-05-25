@@ -16,6 +16,7 @@ import { login, logout } from "../feature/Auth/user";
 import { setCartItems } from "../feature/Cart/cart";
 import { setDisplayProducts, setProducts } from "../feature/Product/products";
 import RightUtils from "./components/RightUtils/Base";
+import { setFavourite } from "../feature/Auth/favourite";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,119 @@ export default function App() {
       showDismissButton: true,
     },
   });
+
+  useEffect(() => {
+    if (
+      location.pathname === "/auth/signin" ||
+      location.pathname === "/auth/signup"
+    ) {
+      dispatch(hideNav());
+    } else {
+      dispatch(showNav());
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const Signin = async () => {
+      dispatch(setProgress(20));
+      const graphQLClient = new GraphQLClient(
+        import.meta.env.VITE_HYGRAPH_ENDPOINT,
+        {
+          headers: {
+            authorization: `Bearer ${import.meta.env.VITE_HYGRAPH_TOKEN}`,
+          },
+        }
+      );
+      const query = gql`
+        query Myquery {
+          customer(where: { email: "${User.email}" }) {
+            id
+            name
+            password
+            phoneNumber
+            email
+            favourite {
+              id
+              product {
+                ... on Product {
+                  id
+                }
+              }
+            }
+            cart {
+              id
+              orderItems {
+                product {
+                  images {
+                    url
+                  }
+                  id
+                  name
+                  price
+                }
+                id
+                quantity
+                total
+              }
+            }
+          }
+        }
+      `;
+
+      // Calling the mutation
+      const Newdata = await graphQLClient.request(query);
+      dispatch(setProgress(40));
+
+      if (Newdata.customer === null) {
+        dispatch(setProgress(60));
+        dispatch(
+          notify({
+            title: "Invalid Credentials",
+            message: `No user with this Email`,
+            status: "error",
+          })
+        );
+        dispatch(setProgress(100));
+        return;
+      }
+
+      if (Newdata.customer.password === User.password) {
+        dispatch(setProgress(60));
+        dispatch(login(Newdata.customer));
+        // dispatch(
+        //   notify({
+        //     title: "Signin Successfull",
+        //     message: `Welcome ${Newdata.customer.name}`,
+        //     status: "success",
+        //   })
+        // );
+        dispatch(setProgress(80));
+        if (Newdata.customer.favourite) {
+          const tempArr = Newdata.customer.favourite.product.map((item) => {
+            return item.id;
+          });
+          dispatch(
+            setFavourite({ data: tempArr, id: Newdata.customer.favourite.id })
+          );
+        }
+        if (Newdata.customer.cart !== null) {
+          dispatch(setCartItems(Newdata.customer.cart));
+        }
+      } else {
+        dispatch(
+          notify({
+            title: "Invalid Credentials",
+            message: "Bad password",
+            status: "warning",
+          })
+        );
+        dispatch(logout());
+      }
+      dispatch(setProgress(100));
+    };
+    if (User.email !== null) Signin();
+  }, []);
+
   const FetchData = async () => {
     const graphQLClient = new GraphQLClient(
       import.meta.env.VITE_HYGRAPH_ENDPOINT,
@@ -82,106 +196,9 @@ export default function App() {
     dispatch(setProducts(Random));
     dispatch(setDisplayProducts(Random));
   };
-
   useEffect(() => {
-    if (location.pathname === "/auth/signin" ||  location.pathname === "/auth/signup") 
-    {
-      dispatch(hideNav());
-    } else {
-      dispatch(showNav());
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
-    const Signin = async () => {
-      dispatch(setProgress(20));
-      const graphQLClient = new GraphQLClient(
-        import.meta.env.VITE_HYGRAPH_ENDPOINT,
-        {
-          headers: {
-            authorization: `Bearer ${import.meta.env.VITE_HYGRAPH_TOKEN}`,
-          },
-        }
-      );
-      const query = gql`
-        query Myquery {
-          customer(where: { email: "${User.email}" }) {
-            id
-            name
-            password
-            phoneNumber
-            email
-            cart {
-              id
-              orderItems {
-                product {
-                  images {
-                    url
-                  }
-                  id
-                  name
-                  price
-                }
-                id
-                quantity
-                total
-              }
-            }
-          }
-        }
-      `;
-
-      // Calling the mutation
-      const Newdata = await graphQLClient.request(query);
-      dispatch(setProgress(40));
-
-      if (Newdata.customer === null) {
-        dispatch(setProgress(60));
-        dispatch(
-          notify({
-            title: "Invalid Credentials",
-            message: `No user with this Email`,
-            status: "error",
-          })
-        );
-        dispatch(setProgress(100));
-        return;
-      }
-
-      if (Newdata.customer.password === User.password) {
-        dispatch(setProgress(60));
-        dispatch(login(Newdata.customer));
-        dispatch(
-          notify({
-            title: "Signin Successfull",
-            message: `Welcome ${Newdata.customer.name}`,
-            status: "success",
-          })
-        );
-        dispatch(setProgress(80));
-        if (Newdata.customer.cart !== null) {
-          dispatch(setCartItems(Newdata.customer.cart));
-        }
-      } else {
-        dispatch(
-          notify({
-            title: "Invalid Credentials",
-            message: "Bad password",
-            status: "warning",
-          })
-        );
-        dispatch(logout());
-      }
-      dispatch(setProgress(100));
-    };
-    if (User.email !== null) Signin();
+    FetchData();
   }, []);
-
-    useEffect(() => {
-      FetchData();    
-  }, []);
-
-
 
   return (
     <>
