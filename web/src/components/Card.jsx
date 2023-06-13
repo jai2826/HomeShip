@@ -44,69 +44,69 @@ export default function ({ data }) {
     dispatch(cartNotload());
   };
 
-  let checkFavourite = favourites.products.includes(data.id);
-  let favLength = favourites.products.length > 0;
-  let favouriteId = favourites.id;
-  const [startTransition, setStartTransition] = useState(false);
-  const handleFavourite = async () => {
-    setStartTransition(true);
-    setTimeout(() => {
-      setStartTransition(false);
-    }, 500);
-    if (!checkFavourite) {
-      const graphQLClient = new GraphQLClient(
-        import.meta.env.VITE_HYGRAPH_ENDPOINT,
-        {
-          headers: {
-            authorization: `Bearer ${import.meta.env.VITE_HYGRAPH_TOKEN}`,
-          },
-        }
-      );
+  // let checkFavourite = favourites.products.includes(data.id);
+  // let favLength = favourites.products.length > 0;
+  // let favouriteId = favourites.id;
+  // const [startTransition, setStartTransition] = useState(false);
+  // const handleFavourite = async () => {
+  //   setStartTransition(true);
+  //   setTimeout(() => {
+  //     setStartTransition(false);
+  //   }, 500);
+  //   if (!checkFavourite) {
+  //     const graphQLClient = new GraphQLClient(
+  //       import.meta.env.VITE_HYGRAPH_ENDPOINT,
+  //       {
+  //         headers: {
+  //           authorization: `Bearer ${import.meta.env.VITE_HYGRAPH_TOKEN}`,
+  //         },
+  //       }
+  //     );
       
-      // Mutation Setup
-      const query = gql`
-      mutation MyMutation {
-        updateCustomer(
-          where: {email: "${User.email}"}
-          ${
-            favLength
-              ? `data: {favourite: {update: {data: {product: {connect: {Product: {where: {id: "${data.id}"}}}}}, where: {id: "${favouriteId}"}}}}`
-              : `data: {favourite: {create: {product: {connect: {Product: {id: "${data.id}"}}}}}}`
-          }
-        ) {
-          favourite {
-            id
-            product {
-              ... on Product {
-                id
-                name
-              }
-            }
-          }
-        }
-        publishCustomer(where: {email: "${User.email}"}, to: PUBLISHED) {
-          id
-        }
-      }
-      `;
-      const Newdata = await graphQLClient.request(query);
+  //     // Mutation Setup
+  //     const query = gql`
+  //     mutation MyMutation {
+  //       updateCustomer(
+  //         where: {email: "${User.email}"}
+  //         ${
+  //           favLength
+  //             ? `data: {favourite: {update: {data: {product: {connect: {Product: {where: {id: "${data.id}"}}}}}, where: {id: "${favouriteId}"}}}}`
+  //             : `data: {favourite: {create: {product: {connect: {Product: {id: "${data.id}"}}}}}}`
+  //         }
+  //       ) {
+  //         favourite {
+  //           id
+  //           product {
+  //             ... on Product {
+  //               id
+  //               name
+  //             }
+  //           }
+  //         }
+  //       }
+  //       publishCustomer(where: {email: "${User.email}"}, to: PUBLISHED) {
+  //         id
+  //       }
+  //     }
+  //     `;
+  //     const Newdata = await graphQLClient.request(query);
       
       
 
-      if (Newdata.updateCustomer.favourite) {
-        const tempArr = Newdata.updateCustomer.favourite.product.map((item) => {
-          return item.id;
-        });
-        dispatch(
-          setFavourite({
-            data: tempArr,
-            id: Newdata.updateCustomer.favourite.id,
-          })
-        );
-      }
-    }
+  //     if (Newdata.updateCustomer.favourite) {
+  //       const tempArr = Newdata.updateCustomer.favourite.product.map((item) => {
+  //         return item.id;
+  //       });
+  //       dispatch(
+  //         setFavourite({
+  //           data: tempArr,
+  //           id: Newdata.updateCustomer.favourite.id,
+  //         })
+  //       );
+  //     }
+  //   }
     
-  };
+  // };
 
 
 
@@ -116,7 +116,7 @@ export default function ({ data }) {
 
   return (
     <div className="relative flex flex-col h-96 w-full md:h-[360px] md:w-1/3.5 border my-5 rounded-md lg:mx-4 ">
-      <Link to={"/"} className="h-44 flex justify-center p-1 ">
+      <Link to={`/product/${data.slug}`} className="h-44 flex justify-center p-1 ">
         <img
           className="h-full  object-center "
           src={data.images[0].url}

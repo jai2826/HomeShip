@@ -17,6 +17,7 @@ import { setCartItems } from "../feature/Cart/cart";
 import { setDisplayProducts, setProducts } from "../feature/Product/products";
 import RightUtils from "./components/RightUtils/Base";
 import { setFavourite } from "../feature/Auth/favourite";
+import { setAddresses } from "../feature/Auth/Addresses";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,14 @@ export default function App() {
             password
             phoneNumber
             email
+            addresses {
+              id
+              email
+              name
+              phoneNumber
+              address
+            }
+            address
             favourite {
               id
               product {
@@ -120,6 +129,9 @@ export default function App() {
         //   })
         // );
         dispatch(setProgress(80));
+        
+        dispatch(setAddresses(Newdata.customer.addresses))
+
         if (Newdata.customer.favourite) {
           const tempArr = Newdata.customer.favourite.product.map((item) => {
             return item.id;
@@ -159,10 +171,11 @@ export default function App() {
     // Query Setup
     const query = gql`
       query Product {
-        products(where: { AND: [] }) {
+        products() {
           id
           name
           price
+          slug
           images {
             id
             url

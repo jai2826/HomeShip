@@ -7,7 +7,8 @@ const initialState = {
         name:null,
         email:null,
         phone:null,
-        password:null
+        password:null,
+        address:null,
     }
 }
 
@@ -16,7 +17,7 @@ export const UserSlice = createSlice({
   initialState,
   reducers: {
     login:(state,action)=>{
-      const {id, name , email , phoneNumber , password} = action.payload
+      const {id, name , email , phoneNumber , password , address} = action.payload
       // console.log(action)
       state.isLoggedIn  = true;
       state.data.id     = id;
@@ -24,6 +25,7 @@ export const UserSlice = createSlice({
       state.data.email  = email;
       state.data.phone  = phoneNumber;
       state.data.password  = password;
+      state.data.address  = address;
     },
     logout:(state)=>{
       state.isLoggedIn  = false;
@@ -32,6 +34,7 @@ export const UserSlice = createSlice({
       state.data.email  = null;
       state.data.phone  = null;
       state.data.password  = null;
+      state.data.address  = null;
     }
 
   },

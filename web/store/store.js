@@ -20,6 +20,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import AddressesReducer from "../feature/Auth/Addresses";
 
 
 const persistConfig = {
@@ -39,7 +40,8 @@ const rootReducer = combineReducers({
   productsLoading: productsLoaderReducer,
   filters:filterReducer,
   util:UtilReducer,
-  favourite:FavouriteReducer
+  favourite:FavouriteReducer,
+  addresses:AddressesReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

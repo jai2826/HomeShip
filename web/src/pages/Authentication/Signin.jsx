@@ -13,6 +13,7 @@ import { load, notload, setProgress } from "../../../feature/Page/loading";
 import { notify } from "reapop";
 import { setCartItems } from "../../../feature/Cart/cart";
 import { setFavourite } from "../../../feature/Auth/favourite";
+import { setAddresses } from "../../../feature/Auth/Addresses";
 
 export default function Signin() {
   const dispatch = useDispatch();
@@ -73,6 +74,14 @@ export default function Signin() {
               }
             }
           }
+          addresses {
+            id
+            email
+            name
+            phoneNumber
+            address
+          }
+          address
           cart {
             id
             orderItems {
@@ -123,6 +132,7 @@ export default function Signin() {
       
       dispatch(login(Newdata.customer));
       dispatch(setProgress(80));
+      dispatch(setAddresses(Newdata.customer.addresses))
       navigate("/", { replace: true });
 
       

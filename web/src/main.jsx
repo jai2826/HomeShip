@@ -11,7 +11,11 @@ import Signin from "./pages/Authentication/Signin.jsx";
 import Signup from "./pages/Authentication/Signup.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import persistStore from "redux-persist/es/persistStore";
-import { IconContext } from "react-icons";
+import ProductPage from "./pages/product";
+import Settings from "./pages/Settings.jsx";
+import Profile from "./pages/Settings/Profile.jsx";
+import Addresses from "./pages/Settings/Addresses.jsx";
+
 
 const Router = createBrowserRouter([
   {
@@ -25,6 +29,24 @@ const Router = createBrowserRouter([
       {
         path: "/products",
         element: <Products />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+        children: [
+          {
+            path: "/settings/profile",
+            element: <Profile />,
+          },
+          {
+            path: "/settings/addresses",
+            element: <Addresses />,
+          },
+        ],
+      },
+      {
+        path: "/product/:slug",
+        element: <ProductPage />,
       },
       {
         path: "/auth/signin",

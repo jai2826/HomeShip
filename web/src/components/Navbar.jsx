@@ -86,18 +86,15 @@ export default function Navbar() {
               Sell
             </Link>
           </li>
-          <li className="mx-3" >
+          <li className="mx-3">
             <Link
               to="#"
               className="rounded-md  px-3  py-2  text-xl font-semibold hover:bg-white"
-              onClick={()=>dispatch(utilToggle())}
+              onClick={() => dispatch(utilToggle())}
             >
               Cart
             </Link>
           </li>
-
-          
-          
         </ul>
       </div>
       <div className="flex w-fit rounded-md ">
@@ -115,14 +112,16 @@ export default function Navbar() {
               </li>
             </Link>
           )}
-          <Link to="/profile">
-            <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-1 text-xl font-semibold hover:bg-white ">
-              <UserCircleIcon className="h-6 w-6" /> <p> Profile</p>
-            </li>
-          </Link>
+          {user.name && (
+            <Link to="/settings">
+              <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-1 text-xl font-semibold hover:bg-white ">
+                <UserCircleIcon className="h-6 w-6" /> <p> Settings</p>
+              </li>
+            </Link>
+          )}
           <button onClick={handleUtils}>
             <li className="flex items-center space-x-2 h-fit rounded-md px-3 py-2 mx-1 text-xl font-semibold hover:bg-white ">
-              <PuzzlePieceIcon className="h-6 w-6" /> 
+              <PuzzlePieceIcon className="h-6 w-6" />
             </li>
           </button>
         </div>
