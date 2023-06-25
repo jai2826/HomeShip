@@ -31,20 +31,20 @@ export default function CartThree() {
   const cartData = useSelector((state) => state.cart.data);
   const cartId = useSelector((state) => state.cart.cartId);
   const stateCart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.auth.data);
+  const User = useSelector((state) => state.auth.data);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.cartLoader.value);
 
   const ClearCart = async () => {
     dispatch(load());
-    const newdata = await clearCart(user.email);
+    const newdata = await clearCart(User.email);
     dispatch(emptyCart());
     dispatch(notload());
   };
 
   const DeleteItem = async (data) => {
     dispatch(load());
-    const newdata = await clearItem(stateCart, data);
+    const newdata = await clearItem(stateCart, data, User.email);
     dispatch(setCartItems(newdata.cart));
     dispatch(notload());
   };
@@ -52,7 +52,7 @@ export default function CartThree() {
   const DecreaseItem = async (data) => {
     // console.log(data)
     dispatch(load());
-    const newdata = await decreaseItem(cartData, cartId, data);
+    const newdata = await decreaseItem(cartData, cartId, data,User.email);
     // console.log(data)
     dispatch(setCartItems(newdata.cart));
     dispatch(notload());
@@ -60,9 +60,8 @@ export default function CartThree() {
 
   const IncreaseItem = async (data) => {
     dispatch(load());
-    
     // console.log(data);
-    const newdata = await setItem(cartData, cartId, data.product);
+    const newdata = await setItem(cartData, cartId, data.product,User.email);
     dispatch(setCartItems(newdata.cart));
     dispatch(notload());
   };

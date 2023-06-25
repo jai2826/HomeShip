@@ -15,6 +15,7 @@ import ProductPage from "./pages/product";
 import Settings from "./pages/Settings.jsx";
 import Profile from "./pages/Settings/Profile.jsx";
 import Addresses from "./pages/Settings/Addresses.jsx";
+import EditAddresses from "./pages/Settings/EditAddresses.jsx";
 
 
 const Router = createBrowserRouter([
@@ -41,6 +42,10 @@ const Router = createBrowserRouter([
           {
             path: "/settings/addresses",
             element: <Addresses />,
+          },
+          {
+            path: "/settings/Editaddresses",
+            element: <EditAddresses />,
           },
         ],
       },

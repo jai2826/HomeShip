@@ -15,7 +15,7 @@ export const clearCart = async (userEmail) => {
       ){
         id
       }
-      publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED){
+      publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED){
       id
     }
     }
@@ -24,14 +24,14 @@ export const clearCart = async (userEmail) => {
   return Newdata.updateCustomer;
 };
 
-export const clearItem = async (stateCart, data) => {
+export const clearItem = async (stateCart, data, userEmail) => {
   let totalcost = 0,
     totalqty = 0;
   const query = gql`
     mutation MyMutation {
       updateCustomer(
         data: {cart: {update: {where: {id: "${stateCart.cartId}"}, data: {totalCost: ${totalcost}, totalQuantity: ${totalqty}, orderItems: {delete: {id: "${data.id}"}}}}}}
-        where: { email: "test@gmail.com" }
+        where: { email: "${userEmail}" }
       ){
         id
         cart {
@@ -51,7 +51,7 @@ export const clearItem = async (stateCart, data) => {
           }
         }
       }
-      publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED) {
+      publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED) {
         id
       } 
     }
@@ -60,7 +60,7 @@ export const clearItem = async (stateCart, data) => {
   return Newdata.updateCustomer;
 };
 
-export const setItem = async (stateCart, CartId, data) => {
+export const setItem = async (stateCart, CartId, data, userEmail) => {
   // console.log(stateCart);
   if (stateCart.length === 0) {
     const quantity = 1;
@@ -69,7 +69,7 @@ export const setItem = async (stateCart, CartId, data) => {
     mutation MyMutation {
       updateCustomer(
         data: {cart: {create: {orderItems: {create: {quantity: ${quantity}, product: {connect: {id: "${data.id}"}}, total: ${total}}}}}}
-        where: {email: "test@gmail.com"}
+        where: {email: "${userEmail}"}
         ){
           id
           cart {
@@ -92,7 +92,7 @@ export const setItem = async (stateCart, CartId, data) => {
     publishManyOrderItems(to: PUBLISHED, where: {product: {id: "${data.id}"}}) {
           count
     }
-    publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED) {
+    publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED) {
       id
     }
   }
@@ -109,7 +109,7 @@ export const setItem = async (stateCart, CartId, data) => {
       const query = gql`
       mutation MyMutation {
         updateCustomer(
-          where: {email: "test@gmail.com"}
+          where: {email: "${userEmail}"}
           data: {cart: {update: {where: {id: "${CartId}"}, data: {orderItems: {create: {quantity: ${quantity}, total: ${total}, product: {connect: {id: "${data.id}"}}}}}}}}
           ){
             id
@@ -133,7 +133,7 @@ export const setItem = async (stateCart, CartId, data) => {
       publishManyOrderItems(to: PUBLISHED, where: {product: {id: "${data.id}"}}) {
             count
       }
-      publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED) {
+      publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED) {
         id
       }
         }
@@ -149,7 +149,7 @@ export const setItem = async (stateCart, CartId, data) => {
       const query = gql`
       mutation MyMutation {
         updateCustomer(
-          where: {email: "test@gmail.com"}
+          where: {email: "${userEmail}"}
           data: {cart: {update: {where: {id: "${CartId}"}, data: {orderItems: {update: {where: {id: "${filteredArray[0].id}"}, data: {quantity: ${quantity}, total: ${total}}}}}}}}
           ) {
             id
@@ -173,7 +173,7 @@ export const setItem = async (stateCart, CartId, data) => {
       publishManyOrderItems(to: PUBLISHED, where: {product: {id: "${data.id}"}}) {
             count
       }
-      publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED) {
+      publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED) {
         id
       }
         }
@@ -185,7 +185,7 @@ export const setItem = async (stateCart, CartId, data) => {
   }
 };
 
-export const decreaseItem = async (stateCart, CartId, data) => {
+export const decreaseItem = async (stateCart, CartId, data,userEmail) => {
   const filteredArray = stateCart.filter((item) => {
     return item.product.id === data.product.id;
   });
@@ -200,7 +200,7 @@ export const decreaseItem = async (stateCart, CartId, data) => {
     mutation MyMutation {
       updateCustomer(
         data: {cart: {update: {where: {id: "${CartId}"}, data: {orderItems: {update: {where: {id: "${filteredArray[0].id}"}, data: {quantity: ${quantity}, total: ${total}}}}}}}}
-        where: { email: "test@gmail.com" }
+        where: { email: "${userEmail}" }
       ){
         id
         cart {
@@ -223,7 +223,7 @@ export const decreaseItem = async (stateCart, CartId, data) => {
       publishManyOrderItems(to: PUBLISHED, where: {product: {id: "${data.id}"}}) {
             count
       }
-      publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED) {
+      publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED) {
         id
       }      
     }
@@ -235,7 +235,7 @@ export const decreaseItem = async (stateCart, CartId, data) => {
     mutation MyMutation {
       updateCustomer(
         data: {cart: {update: {where: {id: "${CartId}"}, data: {orderItems: {delete: {id: "${data.id}"}}}}}}
-        where: { email: "test@gmail.com" }
+        where: { email: "${userEmail}" }
       ){
         id
         cart {
@@ -255,7 +255,7 @@ export const decreaseItem = async (stateCart, CartId, data) => {
           }
         }
       }
-      publishCustomer(where: {email: "test@gmail.com"}, to: PUBLISHED) {
+      publishCustomer(where: {email: "${userEmail}"}, to: PUBLISHED) {
         id
       }      
     } 

@@ -39,7 +39,7 @@ export default function ({ data }) {
 
   const setCartData = async () => {
     dispatch(cartload());
-    const newdata = await setItem(cartData, cartId, data);
+    const newdata = await setItem(cartData, cartId, data, User.email);
     dispatch(setCartItems(newdata.cart));
     dispatch(cartNotload());
   };

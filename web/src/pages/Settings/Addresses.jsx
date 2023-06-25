@@ -1,15 +1,15 @@
 import React from "react";
-import EditDialog from "../../components/Settings/EditDialog";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Addresses = () => {
   const Addresses = useSelector((state) => state.addresses.data);
   console.log(Addresses);
+  const navigate = useNavigate();
 
   return (
     <div className="w-full bg-white p-6">
       <div className="w-full px-10 py-4 flex flex-col">
-        {/* <EditDialog/> */}
         <h1 className="text-3xl font-semibold mx-2 w-full bg-gradient-to-r from-cyan-500 via- to-purple-500  p-2 rounded-md ">
           Your Addresses
         </h1>
@@ -29,7 +29,7 @@ const Addresses = () => {
                     
                   </div>
                 </span>
-                <button className="absolute right-0 top-0 z-20 m-2 border px-2 py-1 rounded-md hover:bg-indigo-500">
+                <button onClick={()=>navigate('/settings/EditAddresses')} className="absolute right-0 top-0 z-20 m-2 border px-2 py-1 rounded-md hover:bg-indigo-500">
                   Edit
                 </button>
               </div>
